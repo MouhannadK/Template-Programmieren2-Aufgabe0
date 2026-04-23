@@ -21,9 +21,27 @@ public class MyProject {
      * @return An array containing the values of all iterations. The last value in the array is the final estimate.
      */
     public static double[] calculateBabylonianRoot(double value, double initial, double maxerror) {
-        // TODO: Implementieren.
-        return new double[] {initial};
+        LinkedList<Double> results = new LinkedList<>();
+        results.add(initial);
+        double currentV = initial;
+        while(true){
+            double error = (value - currentV * currentV) / (2 * currentV);
+
+            if (Math.abs(error) <= maxerror)
+                break;
+            
+            currentV = currentV + error;
+            results.add(currentV);  
+        }
+
+        double[] arrayV = new double[results.size()];
+        for (int i = 0; i < results.size(); i++){
+            arrayV[i] = results.get(i);
+
     }
+            return arrayV;
+
+}
 
     public static void plotData(double[] values) {
         XYChart chart = new XYChart(500, 500);
