@@ -21,10 +21,23 @@ public class MyProject {
      * @return An array containing the values of all iterations. The last value in the array is the final estimate.
      */
     public static double[] calculateBabylonianRoot(double value, double initial, double maxerror) {
+        if (value < 0) {
+        throw new IllegalArgumentException("Value must be non-negative");
+        }
+
+        if (initial == 0) {
+            throw new IllegalArgumentException("Initial value must not be 0");
+        }
+        
         LinkedList<Double> results = new LinkedList<>();
         results.add(initial);
+
         double currentV = initial;
-        while(true){
+
+        int maxIterations = 1000;
+        int count = 0;
+        
+        while(count < maxIterations){
             double error = (value - currentV * currentV) / (2 * currentV);
 
             if (Math.abs(error) <= maxerror)
@@ -32,6 +45,7 @@ public class MyProject {
             
             currentV = currentV + error;
             results.add(currentV);  
+            count++;
         }
 
         double[] arrayV = new double[results.size()];
